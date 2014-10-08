@@ -1,0 +1,65 @@
+﻿				常用命令
+name   |     说明
+----------------------------------------
+!$	上一条命令的最后一个字符串
+!!	执行上一条命令
+
+who	查看谁登陆了系统
+w	查看谁登陆了系统以及Ta们在干什么
+wc	统计字符数、单词数、行数
+	-l行数
+	-m字符数
+	-c比特数
+	-w单词数
+	-L最大行的长度
+echo	简单的打印输出，可以是变量，
+	-n忽略结尾的换行符，默认以换行符号结尾
+	-e识别打印内容中的转义字符
+	-E忽略，默认忽略
+printf	输出简单的字符串，区别echo在与不会自动的提供换行符
+
+基本I/O重定向
+cat	默认从标准输入中读，向标准输出中写
+<	改变标准输入
+>	改变标准输出
+>>	添加到文件
+|	建立管道，管道：前一个的输出作为后一个的输入
+tr	从标准输入中转换、压缩、删除字符，写到标准输入中
+	tr [option] set1 set2
+	集合支持正则表达式
+	-d 在标准输入中删除set1中列出的内容
+	-s 浓缩重复的字符
+
+特殊文件
+/dev/null	位桶，所有传送到此文件的数据都被系统丢掉
+/dev/tty	当程序打开该文件时，unix会自动将它重定向到一个终端再与程序结合。这		个程序必须读入人工输入是特别有用。
+
+用于输入密码的选项，输入的密码不可见
+stty -echo	关闭自动打印输入字符的功能
+stty echo	打开自动打印输入字符的功能
+
+例如：
+	printf "Enter your passwd:"
+	stty -echo
+	read pass < /dev/tty
+	printf "\nEnter again:"
+	read passwd < /dev/tty 
+	stty echo
+	printf "\n"
+	if [ $pass = $passwd ] 
+	then 
+	    echo "same $passwd"
+	else
+	    echo "not same $pass , $passwd"
+	fi
+	printf "\n"
+
+环境变量
+	$PATH
+
+位置参数：shell脚本的命令行参数
+	$1~$9,大于9时，用大括号括起来，${10}
+
+简单的执行跟踪
+	sh -x [scriptname]
+	或在脚本里使用set -x（set +x）
